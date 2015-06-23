@@ -89,7 +89,7 @@ class DatabaseHandler:
 			
 			print('command executed successfully')
 		except db.Error, e:
-			print('command failed...')
+			print('command failed...\n' + e.args[1])
 		finally:
 			if cursor:
 				try:
