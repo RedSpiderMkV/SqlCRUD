@@ -72,7 +72,7 @@ class DatabaseHandler:
 	def _openConnection(self, host, user, password, database):
 		self.dbConnection = db.connect(host, user, password, database)
 		
-		self._printMessage('Connection open')
+		#self._printMessage('Connection open')
 		
 		handler = DatabaseHandler()
 		return handler
