@@ -51,7 +51,11 @@ class DatabaseHandler:
 			sqlCommand += str(value) + ","
 			
 		sqlCommand = self._appendClosingBrace(sqlCommand)
-		self._executeSqlCommand(sqlCommand)
+		
+		if self._executeSqlCommand(sqlCommand):
+			self.dbConnection.commit()
+		else:
+			self.dbConnection.rollback()	
 		
 	def DeleteTable(self, tableName):
 		sqlCommand = "DROP TABLE " + tableName
@@ -90,8 +94,12 @@ class DatabaseHandler:
 			cursor.close()
 			
 			self._printMessage('command executed successfully')
+			
+			return True
 		except db.Error, e:
 			print('command failed...' + e.args[1])
+			
+			return False
 		finally:
 			if cursor:
 				try:
