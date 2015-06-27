@@ -15,9 +15,7 @@ class DatabaseHandler:
 	
 	def CloseConnection(self):
 		self.dbConnection.close()
-		
-		if self.printFlag:
-			print('Connection closed')
+		self._printMessage('Connection closed')
 	
 	def SetDatabase(self, dbName):
 		self.dbName = dbName
@@ -74,8 +72,7 @@ class DatabaseHandler:
 	def _openConnection(self, host, user, password, database):
 		self.dbConnection = db.connect(host, user, password, database)
 		
-		if self.printFlag:
-			print('Connection open')
+		self._printMessage('Connection open')
 		
 		handler = DatabaseHandler()
 		return handler
@@ -92,8 +89,7 @@ class DatabaseHandler:
 			cursor.execute(command)
 			cursor.close()
 			
-			if self.printFlag:
-				print('command executed successfully')
+			self._printMessage('command executed successfully')
 		except db.Error, e:
 			print('command failed...' + e.args[1])
 		finally:
@@ -102,3 +98,7 @@ class DatabaseHandler:
 					cursor.close()
 				except Exception, e:
 					print(e.args[1])
+
+	def _printMessage(self, msg):
+		if self.printFlag:
+			print(msg)
