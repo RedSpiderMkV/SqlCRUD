@@ -4,8 +4,9 @@ from CredentialHandler import CredentialHandler
 
 class DatabaseHandler:
 	@classmethod
-	def OpenWithFile(self, credentialFile):
+	def OpenWithFile(self, credentialFile, printFlag):
 		credentials = CredentialHandler(credentialFile)
+		self.printFlag = printFlag
 		return self._openConnection(credentials.host, credentials.user, credentials.password, '')
 	
 	@classmethod
@@ -14,7 +15,9 @@ class DatabaseHandler:
 	
 	def CloseConnection(self):
 		self.dbConnection.close()
-		print('Connection closed')
+		
+		if self.printFlag:
+			print('Connection closed')
 	
 	def SetDatabase(self, dbName):
 		self.dbName = dbName
@@ -70,7 +73,9 @@ class DatabaseHandler:
 	@classmethod
 	def _openConnection(self, host, user, password, database):
 		self.dbConnection = db.connect(host, user, password, database)
-		print('Connection open')
+		
+		if self.printFlag:
+			print('Connection open')
 		
 		handler = DatabaseHandler()
 		return handler
@@ -87,9 +92,10 @@ class DatabaseHandler:
 			cursor.execute(command)
 			cursor.close()
 			
-			print('command executed successfully')
+			if self.printFlag:
+				print('command executed successfully')
 		except db.Error, e:
-			print('command failed...\n' + e.args[1])
+			print('command failed...' + e.args[1])
 		finally:
 			if cursor:
 				try:
