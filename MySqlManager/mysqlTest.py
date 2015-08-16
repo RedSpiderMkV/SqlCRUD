@@ -1,14 +1,12 @@
 
-import time
 from datetime import datetime
 from DatabaseHandler import DatabaseHandler
 
 def test():
-	databaseHandler = DatabaseHandler.OpenWithFile('credentials.xml')
+	databaseHandler = DatabaseHandler.OpenWithFile('../CredentialManager/credentials.xml', True)
 	
-	databaseHandler.SetDatabase('testDb')
 	databaseHandler.CreateDatabase('testDb123')
-	databaseHandler.DeleteDatabase('testDb123')
+	databaseHandler.SetDatabase('testDb123')
 	
 	name = 'table1'
 	fields = [('field1', 'VARCHAR(50)'), ('field2', 'INTEGER'), ('timestamp', 'BIGINT')]
@@ -25,6 +23,7 @@ def test():
 	
 	databaseHandler.SelectAll(name)
 	databaseHandler.DeleteTable(name)
+	databaseHandler.DeleteDatabase('testDb123')
 	databaseHandler.CloseConnection()
             
 test()

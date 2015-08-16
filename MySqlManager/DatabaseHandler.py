@@ -1,4 +1,7 @@
 
+import sys
+sys.path.append('../CredentialManager')
+
 import MySQLdb as db
 from CredentialHandler import CredentialHandler
 
