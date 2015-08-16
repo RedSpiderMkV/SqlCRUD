@@ -1,20 +1,15 @@
 
-import sys
-sys.path.append('../CredentialManager')
-
 import MySQLdb as db
-from CredentialHandler import CredentialHandler
 
 class DatabaseHandler:
-	@classmethod
-	def OpenWithFile(self, credentialFile, printFlag):
-		credentials = CredentialHandler(credentialFile)
-		self.printFlag = printFlag
-		return self._openConnection(credentials.host, credentials.user, credentials.password, '')
-	
-	@classmethod
-	def OpenWithCredentials(self, host, user, password, database):
-		return self._openConnection(host, user, password, database)
+	def __init__(self, credentials):
+		self.__credentials = credentials
+		self.printFlag = True
+		
+	def OpenConnection(self):
+		self.dbConnection = db.connect(self.__credentials.Host, \
+							   self.__credentials.User, \
+							   self.__credentials.Password, '')
 	
 	def CloseConnection(self):
 		self.dbConnection.close()
@@ -74,15 +69,6 @@ class DatabaseHandler:
 		
 		for row in data:
 			print row
-
-	@classmethod
-	def _openConnection(self, host, user, password, database):
-		self.dbConnection = db.connect(host, user, password, database)
-		
-		#self._printMessage('Connection open')
-		
-		handler = DatabaseHandler()
-		return handler
 
 	def _appendClosingBrace(self, sqlCommand):
 		sqlCommand = sqlCommand[0:len(sqlCommand) - 1]

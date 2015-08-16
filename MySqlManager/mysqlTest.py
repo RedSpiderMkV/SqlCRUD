@@ -1,9 +1,17 @@
 
+import sys
+sys.path.append('../CredentialManager')
+
 from datetime import datetime
 from DatabaseHandler import DatabaseHandler
+from CredentialHandler import CredentialHandler
 
 def test():
-	databaseHandler = DatabaseHandler.OpenWithFile('../CredentialManager/credentials.xml', True)
+	#databaseHandler = DatabaseHandler.OpenWithFile('../CredentialManager/credentials.xml', True)
+
+	credentialsHandler = CredentialHandler('../CredentialManager/credentials.xml')
+	databaseHandler = DatabaseHandler(credentialsHandler.Credentials)
+	databaseHandler.OpenConnection()
 	
 	databaseHandler.CreateDatabase('testDb123')
 	databaseHandler.SetDatabase('testDb123')

@@ -1,17 +1,21 @@
 
+import sys
+sys.path.append('../CredentialStore')
+
 from xml.dom import minidom
+from CredentialStore import CredentialStore
 
 class CredentialHandler:
-	HOSTFIELD = 'host'
-	USERFIELD = 'user'
-	PASSWORDFIELD = 'password'
-	CREDENTIALFILENAME = ''
+	__HOSTFIELD = 'host'
+	__USERFIELD = 'user'
+	__PASSWORDFIELD = 'password'
 	
 	def __init__(self, credentialFile):
-		self.CREDENTIALFILENAME = credentialFile
-		xmldoc = minidom.parse(self.CREDENTIALFILENAME)
+		xmldoc = minidom.parse(credentialFile)
 		
-		self.host = xmldoc.getElementsByTagName(self.HOSTFIELD)[0].firstChild.nodeValue
-		self.user = xmldoc.getElementsByTagName(self.USERFIELD)[0].firstChild.nodeValue
-		self.password = xmldoc.getElementsByTagName(self.PASSWORDFIELD)[0].firstChild.nodeValue
-
+		host = xmldoc.getElementsByTagName(self.__HOSTFIELD)[0].firstChild.nodeValue
+		user = xmldoc.getElementsByTagName(self.__USERFIELD)[0].firstChild.nodeValue
+		password = xmldoc.getElementsByTagName(self.__PASSWORDFIELD)[0].firstChild.nodeValue
+		
+		self.Credentials = CredentialStore(host, user, password)
+		
