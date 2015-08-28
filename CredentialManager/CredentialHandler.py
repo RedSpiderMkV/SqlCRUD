@@ -18,4 +18,3 @@ class CredentialHandler:
 		password = xmldoc.getElementsByTagName(self.__PASSWORDFIELD)[0].firstChild.nodeValue
 		
 		self.Credentials = CredentialStore(host, user, password)
-		

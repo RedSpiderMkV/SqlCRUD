@@ -5,11 +5,13 @@ sys.path.append('../CredentialManager')
 from datetime import datetime
 from DatabaseHandler import DatabaseHandler
 from CredentialHandler import CredentialHandler
+import os
 
 def test():
 	#databaseHandler = DatabaseHandler.OpenWithFile('../CredentialManager/credentials.xml', True)
+	
+	credentialsHandler = CredentialHandler(os.path.abspath('../CredentialManager/credentials.xml'))
 
-	credentialsHandler = CredentialHandler('../CredentialManager/credentials.xml')
 	databaseHandler = DatabaseHandler(credentialsHandler.Credentials)
 	databaseHandler.OpenConnection()
 	
@@ -30,8 +32,8 @@ def test():
 	databaseHandler.InsertRecord(name, fields, values[1])
 	
 	databaseHandler.SelectAll(name)
-	databaseHandler.DeleteTable(name)
-	databaseHandler.DeleteDatabase('testDb123')
+	#databaseHandler.DeleteTable(name)
+	#databaseHandler.DeleteDatabase('testDb123')
 	databaseHandler.CloseConnection()
             
 test()
