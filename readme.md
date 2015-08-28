@@ -9,9 +9,11 @@ Hoping to add support for others.
 Credential File Contents Example
 --------------------------------
 
+```xml
 <credential>
 	<host>localhost</host>
 	<user>user</user>
 	<password>password</password>
 	<database></database>
 </credential>
+```
