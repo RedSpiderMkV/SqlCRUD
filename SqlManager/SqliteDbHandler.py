@@ -13,31 +13,30 @@ class DatabaseHandler:
 		self.__printFlag = DEBUG
 		
 	def CreateDatabase(self, dbNameWithPath):
-		try:
-			con = lite.connect(dbNameWithPath)
+		if self._connectToDatabase(dbNameWithPath):
 			self._print('Created database')
+			return True
 			
+		return False
+	
+	def SetDatabase(self, dbNameWithPath):
+		if os.path.exists(dbNameWithPath):
+			if self._connectToDatabase(dbNameWithPath):
+				self._print('Using database')
+				return True
+		else:
+			self._print('Database doesn\'t exist')
+			
+		return False
+		
+	def _connectToDatabase(self, dbNameWithPath):
+		try:
+			con = lite.connect(dbNameWithPath)			
 			return True
 		except lite.Error, e:
 			self._print(e.message)
 		finally:
 			con.close()
-			
-		return False
-			
-	def SetDatabase(self, dbNameWithPath):
-		if os.path.exists(dbNameWithPath):
-			try:
-				con = lite.connect(dbNameWithPath)
-				self._print('Using database')
-				
-				return True
-			except lite.Error, e:
-				self._print(e.message)
-			finally:
-				con.close()
-		else:
-			self._print('Database doesn\'t exist')
 			
 		return False
 			
