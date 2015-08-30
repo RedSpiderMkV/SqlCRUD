@@ -53,10 +53,10 @@ class DatabaseHandler:
 		if self._executeSqlCommand(sqlCommand):
 			self.dbConnection.commit()
 		else:
-			self.dbConnection.rollback()	
+			self.dbConnection.rollback()
 		
 	def DeleteTable(self, tableName):
-		sqlCommand = "DROP TABLE " + tableName
+		sqlCommand = "DROP TABLE IF EXISTS " + tableName
 		self._executeSqlCommand(sqlCommand)
 		
 	def SelectAll(self, tableName):

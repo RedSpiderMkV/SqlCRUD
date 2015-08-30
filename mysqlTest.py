@@ -20,15 +20,15 @@ def test():
 #	databaseHandler.CreateDatabase('testDb123')
 #	databaseHandler.SetDatabase('testDb123')
 #	
-#	name = 'table1'
-#	fields = [('field1', 'VARCHAR(50)'), ('field2', 'INTEGER'), ('timestamp', 'BIGINT')]
+	name = 'table1'
+	fields = [('field1', 'VARCHAR(50)'), ('field2', 'INTEGER'), ('timestamp', 'BIGINT')]
 #	
 #	databaseHandler.CreateTable(name, fields)
 #	
-#	dateTime = int(datetime.strptime('01-01-2010 10:00:00', '%d-%m-%Y %H:%M:%S').strftime('%s'))
-#	
-#	fields = ['field1', 'field2', 'timestamp']
-#	values = [['"hello"', 15, dateTime], ['"byebye"', 10, dateTime]]
+	dateTime = int(datetime.strptime('01-01-2010 10:00:00', '%d-%m-%Y %H:%M:%S').strftime('%s'))
+	
+	insertFields = ['field1', 'field2', 'timestamp']
+	insertValues = [['"hello"', 15, dateTime], ['"byebye"', 10, dateTime]]
 #	databaseHandler.InsertRecord(name, fields, values[0])
 #	databaseHandler.InsertRecord(name, fields, values[1])
 #	
@@ -40,7 +40,13 @@ def test():
 	databaseHandler = DatabaseHandler(True)
 	databaseHandler.CreateDatabase('testDb.db')
 	databaseHandler.CreateDatabase('testDb2.db')
-	databaseHandler.SetDatabase('testDb.db')
 	databaseHandler.DeleteDatabase('testDb.db')
+	databaseHandler.SetDatabase('testDb2.db')
+	databaseHandler.CreateTable(name, fields)
+	databaseHandler.InsertRecord(name, insertFields, insertValues[0])
+	databaseHandler.InsertRecord(name, insertFields, insertValues[1])
+	databaseHandler.SelectAll(name)
+	databaseHandler.DeleteTable(name)
+	databaseHandler.DeleteDatabase('testDb2.db')
 
 test()
