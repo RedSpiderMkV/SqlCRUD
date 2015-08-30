@@ -3,7 +3,7 @@ import sys
 sys.path.append('../CredentialStore')
 
 from xml.dom import minidom
-from CredentialStore import CredentialStore
+from CredentialStore.CredentialStore import CredentialStore
 
 class CredentialHandler:
 	__HOSTFIELD = 'host'

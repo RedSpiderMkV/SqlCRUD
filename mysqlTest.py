@@ -3,14 +3,14 @@ import sys
 sys.path.append('../CredentialManager')
 
 from datetime import datetime
-from DatabaseHandler import DatabaseHandler
-from CredentialHandler import CredentialHandler
+from MySqlManager.DatabaseHandler import DatabaseHandler
+from CredentialManager.CredentialHandler import CredentialHandler
 import os
 
 def test():
 	#databaseHandler = DatabaseHandler.OpenWithFile('../CredentialManager/credentials.xml', True)
 	
-	credentialsHandler = CredentialHandler(os.path.abspath('../CredentialManager/credentials.xml'))
+	credentialsHandler = CredentialHandler(os.path.abspath('credentials.xml'))
 
 	databaseHandler = DatabaseHandler(credentialsHandler.Credentials)
 	databaseHandler.OpenConnection()
@@ -24,7 +24,6 @@ def test():
 	databaseHandler.CreateTable(name, fields)
 	
 	dateTime = int(datetime.strptime('01-01-2010 10:00:00', '%d-%m-%Y %H:%M:%S').strftime('%s'))
-	#print time.strftime('%d/%m/%y') # print today's date
 	
 	fields = ['field1', 'field2', 'timestamp']
 	values = [['"hello"', 15, dateTime], ['"byebye"', 10, dateTime]]
@@ -32,8 +31,8 @@ def test():
 	databaseHandler.InsertRecord(name, fields, values[1])
 	
 	databaseHandler.SelectAll(name)
-	#databaseHandler.DeleteTable(name)
-	#databaseHandler.DeleteDatabase('testDb123')
+	databaseHandler.DeleteTable(name)
+	databaseHandler.DeleteDatabase('testDb123')
 	databaseHandler.CloseConnection()
             
 test()
