@@ -4,7 +4,7 @@ import MySQLdb as db
 class DatabaseHandler:
 	def __init__(self, credentials, DEBUG=False):
 		self.__credentials = credentials
-		self.printFlag = DEBUG
+		self.__printFlag = DEBUG
 		
 	def OpenConnection(self):
 		self.dbConnection = db.connect(self.__credentials.Host, \
@@ -97,5 +97,5 @@ class DatabaseHandler:
 					print(e.args[1])
 
 	def _printMessage(self, msg):
-		if self.printFlag:
+		if self.__printFlag:
 			print(msg)

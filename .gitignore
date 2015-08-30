@@ -1,3 +1,4 @@
 *credentials.xml
 *.pyc
 *.log
+*.db
