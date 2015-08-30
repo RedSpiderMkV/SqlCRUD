@@ -3,7 +3,7 @@ import sys
 sys.path.append('../CredentialManager')
 
 from datetime import datetime
-from MySqlManager.DatabaseHandler import DatabaseHandler
+from SqlManager.DatabaseHandler import DatabaseHandler
 from CredentialManager.CredentialHandler import CredentialHandler
 import os
 
