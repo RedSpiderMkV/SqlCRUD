@@ -41,5 +41,6 @@ def test():
 	databaseHandler.CreateDatabase('testDb.db')
 	databaseHandler.CreateDatabase('testDb2.db')
 	databaseHandler.SetDatabase('testDb.db')
+	databaseHandler.DeleteDatabase('testDb.db')
 
 test()

@@ -18,6 +18,15 @@ class DatabaseHandler:
 			return True
 			
 		return False
+
+	def DeleteDatabase(self, dbNameWithPath):
+		os.remove(dbNameWithPath)
+		
+		if not os.path.exists(dbNameWithPath):
+			self._print('Database deleted')
+			return True
+		
+		return False
 	
 	def SetDatabase(self, dbNameWithPath):
 		if os.path.exists(dbNameWithPath):
