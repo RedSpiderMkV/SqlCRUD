@@ -2,9 +2,9 @@
 import MySQLdb as db
 
 class DatabaseHandler:
-	def __init__(self, credentials):
+	def __init__(self, credentials, DEBUG=False):
 		self.__credentials = credentials
-		self.printFlag = True
+		self.printFlag = DEBUG
 		
 	def OpenConnection(self):
 		self.dbConnection = db.connect(self.__credentials.Host, \

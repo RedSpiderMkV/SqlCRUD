@@ -12,7 +12,7 @@ def test():
 	
 	credentialsHandler = CredentialHandler(os.path.abspath('credentials.xml'))
 
-	databaseHandler = DatabaseHandler(credentialsHandler.Credentials)
+	databaseHandler = DatabaseHandler(credentialsHandler.Credentials, True)
 	databaseHandler.OpenConnection()
 	
 	databaseHandler.CreateDatabase('testDb123')
