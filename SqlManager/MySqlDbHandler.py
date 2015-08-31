@@ -7,10 +7,12 @@ Created on Sun Aug 24 21:12:33 2015
 
 import MySQLdb as db
 
-class MySqlHandler:
+from BaseDbHandler import DbHandler
+
+class MySqlHandler(DbHandler):
 	def __init__(self, credentials, DEBUG=False):
+		super(MySqlHandler, self).__init__(DEBUG)
 		self.__credentials = credentials
-		self.__printFlag = DEBUG
 		
 	def OpenConnection(self):
 		self.dbConnection = db.connect(self.__credentials.Host, \
@@ -19,7 +21,7 @@ class MySqlHandler:
 	
 	def CloseConnection(self):
 		self.dbConnection.close()
-		self._printMessage('Connection closed')
+		self._print('Connection closed')
 	
 	def SetDatabase(self, dbName):
 		self.dbName = dbName
@@ -34,57 +36,12 @@ class MySqlHandler:
 		sqlCommand = "DROP DATABASE " + dbName
 		self._executeSqlCommand(sqlCommand)
 
-	def CreateTable(self, tableName, tableFields):
-		sqlCommand = "CREATE TABLE IF NOT EXISTS " + tableName + "("
-		
-		for field in tableFields:
-			sqlCommand += field[0] + " " + field[1] + ","
-			
-		sqlCommand = self._appendClosingBrace(sqlCommand)
-		self._executeSqlCommand(sqlCommand)
-
-	def InsertRecord(self, tableName, fields, values):
-		sqlCommand = "INSERT INTO " + tableName + "("
-		for field in fields:
-			sqlCommand += field + ","
-			
-		sqlCommand = self._appendClosingBrace(sqlCommand)
-		
-		sqlCommand += "VALUES("
-		for value in values:
-			sqlCommand += str(value) + ","
-			
-		sqlCommand = self._appendClosingBrace(sqlCommand)
-		
-		if self._executeSqlCommand(sqlCommand):
-			self.dbConnection.commit()
-		else:
-			self.dbConnection.rollback()
-		
-	def DeleteTable(self, tableName):
-		sqlCommand = "DROP TABLE IF EXISTS " + tableName
-		self._executeSqlCommand(sqlCommand)
-		
-	def SelectAll(self, tableName):
-		sqlCommand = "SELECT * FROM " + tableName
-		
-		data = self._executeSqlCommand(sqlCommand, True)
-		
-		for row in data:
-			print row
-
-	def _appendClosingBrace(self, sqlCommand):
-		sqlCommand = sqlCommand[0:len(sqlCommand) - 1]
-		sqlCommand += ")"
-		
-		return sqlCommand
-
 	def _executeSqlCommand(self, command, fetch=False):
 		try:
 			cursor = self.dbConnection.cursor()
 			cursor.execute(command)
 			
-			self._printMessage('command executed successfully')				
+			self._print('command executed successfully')
 			
 			if fetch:
 				return cursor.fetchall()
@@ -100,7 +57,3 @@ class MySqlHandler:
 					cursor.close()
 				except Exception, e:
 					print(e.args[1])
-
-	def _printMessage(self, msg):
-		if self.__printFlag:
-			print(msg)
