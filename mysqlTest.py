@@ -3,11 +3,10 @@ import sys
 sys.path.append('../CredentialManager')
 
 from datetime import datetime
-from SqlManager.MySqlDbHandler import DatabaseHandler
+from SqlManager.MySqlDbHandler import MySqlHandler
+from SqlManager.SqliteDbHandler import SqliteHandler
 from CredentialManager.CredentialHandler import CredentialHandler
 import os
-
-from SqlManager.SqliteDbHandler import DatabaseHandler
 
 def test():
 	#databaseHandler = DatabaseHandler.OpenWithFile('../CredentialManager/credentials.xml', True)
@@ -29,8 +28,8 @@ def test():
 	
 	insertFields = ['field1', 'field2', 'timestamp']
 	insertValues = [['"hello"', 15, dateTime], ['"byebye"', 10, dateTime]]
-#	databaseHandler.InsertRecord(name, fields, values[0])
-#	databaseHandler.InsertRecord(name, fields, values[1])
+#	databaseHandler.InsertRecord(name, insertFields, insertValues[0])
+#	databaseHandler.InsertRecord(name, insertFields, insertValues[1])
 #	
 #	databaseHandler.SelectAll(name)
 #	databaseHandler.DeleteTable(name)

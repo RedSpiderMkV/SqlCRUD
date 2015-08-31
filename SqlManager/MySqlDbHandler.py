@@ -1,7 +1,7 @@
 
 import MySQLdb as db
 
-class DatabaseHandler:
+class MySqlHandler:
 	def __init__(self, credentials, DEBUG=False):
 		self.__credentials = credentials
 		self.__printFlag = DEBUG

@@ -8,7 +8,7 @@ Created on Sun Aug 30 23:29:20 2015
 import sqlite3 as lite
 import os
 
-class DatabaseHandler:
+class SqliteHandler:
 	def __init__(self, DEBUG=False):
 		self.__printFlag = DEBUG
 		
