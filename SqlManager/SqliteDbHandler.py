@@ -8,9 +8,11 @@ Created on Sun Aug 30 23:29:20 2015
 import sqlite3 as lite
 import os
 
-class SqliteHandler:
+from BaseDbHandler import DbHandler
+
+class SqliteHandler(DbHandler):
 	def __init__(self, DEBUG=False):
-		self.__printFlag = DEBUG
+		super(SqliteHandler, self).__init__(DEBUG)
 		
 	def CreateDatabase(self, dbNameWithPath):
 		if self._connectToDatabase(dbNameWithPath):
@@ -109,5 +111,5 @@ class SqliteHandler:
 		return False
 			
 	def _print(self, message):
-		if self.__printFlag:
+		if self._printFlag:
 			print(message)

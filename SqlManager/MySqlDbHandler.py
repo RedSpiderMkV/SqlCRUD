@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Aug 24 21:12:33 2015
+
+@author: RedSpiderMkV
+"""
 
 import MySQLdb as db
 
