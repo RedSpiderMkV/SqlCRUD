@@ -68,10 +68,7 @@ class MySqlHandler:
 	def SelectAll(self, tableName):
 		sqlCommand = "SELECT * FROM " + tableName
 		
-		cursor = self.dbConnection.cursor()
-		cursor.execute(sqlCommand)
-		
-		data = cursor.fetchall()
+		data = self._executeSqlCommand(sqlCommand, True)
 		
 		for row in data:
 			print row
@@ -82,14 +79,16 @@ class MySqlHandler:
 		
 		return sqlCommand
 
-	def _executeSqlCommand(self, command):
+	def _executeSqlCommand(self, command, fetch=False):
 		try:
 			cursor = self.dbConnection.cursor()
 			cursor.execute(command)
-			cursor.close()
 			
-			self._printMessage('command executed successfully')
+			self._printMessage('command executed successfully')				
 			
+			if fetch:
+				return cursor.fetchall()
+				
 			return True
 		except db.Error, e:
 			print('command failed...' + e.args[1])
