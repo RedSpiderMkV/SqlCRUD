@@ -85,6 +85,8 @@ class SqliteHandler:
 			cur = con.cursor()
 			cur.execute(sqlCommand)
 			
+			self._print("command executed successfully")
+			
 			if fetch:
 				rows = cur.fetchall()
 				return rows

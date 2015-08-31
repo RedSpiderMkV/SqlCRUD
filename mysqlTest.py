@@ -8,15 +8,15 @@ from SqlManager.SqliteDbHandler import SqliteHandler
 from CredentialManager.CredentialHandler import CredentialHandler
 import os
 
+name = 'table1'
+fields = [('field1', 'VARCHAR(50)'), ('field2', 'INTEGER'), ('timestamp', 'BIGINT')]
+
+dateTime = int(datetime.strptime('01-01-2010 10:00:00', '%d-%m-%Y %H:%M:%S').strftime('%s'))	
+insertFields = ['field1', 'field2', 'timestamp']
+insertValues = [['"hello"', 15, dateTime], ['"byebye"', 10, dateTime]]
+
 def testMySql():
 	#databaseHandler = DatabaseHandler.OpenWithFile('../CredentialManager/credentials.xml', True)
-	name = 'table1'
-	fields = [('field1', 'VARCHAR(50)'), ('field2', 'INTEGER'), ('timestamp', 'BIGINT')]
-	
-	dateTime = int(datetime.strptime('01-01-2010 10:00:00', '%d-%m-%Y %H:%M:%S').strftime('%s'))	
-	insertFields = ['field1', 'field2', 'timestamp']
-	insertValues = [['"hello"', 15, dateTime], ['"byebye"', 10, dateTime]]
-	
 	credentialsHandler = CredentialHandler(os.path.abspath('credentials.xml'))
 
 	databaseHandler = MySqlHandler(credentialsHandler.Credentials, True)
@@ -35,14 +35,7 @@ def testMySql():
 	databaseHandler.DeleteDatabase('testDb123')
 	databaseHandler.CloseConnection()
 
-def testSqlite():
-	name = 'table1'
-	fields = [('field1', 'VARCHAR(50)'), ('field2', 'INTEGER'), ('timestamp', 'BIGINT')]
-	
-	dateTime = int(datetime.strptime('01-01-2010 10:00:00', '%d-%m-%Y %H:%M:%S').strftime('%s'))	
-	insertFields = ['field1', 'field2', 'timestamp']
-	insertValues = [['"hello"', 15, dateTime], ['"byebye"', 10, dateTime]]
-	
+def testSqlite():	
 	databaseHandler = SqliteHandler(True)
 	databaseHandler.CreateDatabase('testDb.db')
 	databaseHandler.CreateDatabase('testDb2.db')
