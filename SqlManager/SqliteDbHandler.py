@@ -9,7 +9,7 @@ import sqlite3 as lite
 import os
 
 class DatabaseHandler:
-	def __init__(self, DEBUG = False):
+	def __init__(self, DEBUG=False):
 		self.__printFlag = DEBUG
 		
 	def CreateDatabase(self, dbNameWithPath):
