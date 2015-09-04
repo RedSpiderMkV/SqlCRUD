@@ -38,8 +38,7 @@ class DbHandler(object):
 	def InsertRecord(self, tableName, fields, value):
 		sqlCommand = self._getInsertCommandFields(tableName, fields)
 
-		sqlCommand += " VALUES"
-		
+		sqlCommand += " VALUES"		
 		sqlCommand += self._getInsertCommandSingleValue(value)
 		
 		self._executeSqlCommand(sqlCommand)
