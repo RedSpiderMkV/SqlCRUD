@@ -43,7 +43,31 @@ class SqliteHandler(DbHandler):
 		return False
 
 	def InsertManyRecords(self, tableName, fields, values):
-		return
+		sqlCommand = "INSERT INTO " + tableName + "\n"
+
+		index = 0
+		initValue = values[0]
+		
+		sqlCommand += "SELECT "
+		while index < len(fields):
+			sqlCommand += str(initValue[index]) + " AS " + fields[index] + ", "
+			index += 1
+		
+		sqlCommand = sqlCommand[:-2] + " "
+		
+		init = True
+		for value in values:
+			if init:
+				init = False
+				continue
+			
+			sqlCommand += "\nUNION SELECT "
+			for val in value:
+				sqlCommand += str(val) + ", "
+			
+			sqlCommand = sqlCommand[:-2] + " "
+		
+		self._executeSqlCommand(sqlCommand)
 
 	def _executeSqlCommand(self, sqlCommand, fetch=False):
 		con = lite.connect(self.__dbName)
