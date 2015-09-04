@@ -42,6 +42,9 @@ class SqliteHandler(DbHandler):
 			
 		return False
 
+	def InsertManyRecords(self, tableName, fields, values):
+		return
+
 	def _executeSqlCommand(self, sqlCommand, fetch=False):
 		con = lite.connect(self.__dbName)
 		with con:
