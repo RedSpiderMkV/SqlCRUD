@@ -29,6 +29,7 @@ def testMySql():
 	
 	databaseHandler.InsertRecord(name, insertFields, insertValues[0])
 	databaseHandler.InsertRecord(name, insertFields, insertValues[1])
+	databaseHandler.InsertManyRecords(name, insertFields, insertValues)
 	
 	databaseHandler.SelectAll(name)
 	databaseHandler.DeleteTable(name)

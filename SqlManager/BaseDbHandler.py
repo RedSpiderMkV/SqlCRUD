@@ -35,20 +35,25 @@ class DbHandler(object):
 		sqlCommand = "DROP TABLE IF EXISTS " + tableName
 		self._executeSqlCommand(sqlCommand)
 
-	def InsertRecord(self, tableName, fields, values):
-		sqlCommand = "INSERT INTO " + tableName + "("
-		for field in fields:
-			sqlCommand += field + ","
-			
-		sqlCommand = self._appendClosingBrace(sqlCommand)
+	def InsertRecord(self, tableName, fields, value):
+		sqlCommand = self._getInsertCommandFields(tableName, fields)
+
+		sqlCommand += " VALUES"
 		
-		sqlCommand += "VALUES("
-		for value in values:
-			sqlCommand += str(value) + ","
-			
-		sqlCommand = self._appendClosingBrace(sqlCommand)
+		sqlCommand += self._getInsertCommandSingleValue(value)
 		
 		self._executeSqlCommand(sqlCommand)
+
+	def InsertManyRecords(self, tableName, fields, values):
+		sqlCommand = self._getInsertCommandFields(tableName, fields)
+
+		sqlCommand += " VALUES"
+
+		for value in values:
+			sqlCommand += self._getInsertCommandSingleValue(value) + ", "
+
+		print sqlCommand
+		#self._executeSqlCommand(sqlCommand)
 
 	def SelectAll(self, tableName):
 		sqlCommand = "SELECT * FROM " + tableName
@@ -64,7 +69,25 @@ class DbHandler(object):
 		sqlCommand = sqlCommand[0:len(sqlCommand) - 1]
 		sqlCommand += ")"
 		
-		return sqlCommand	
+		return sqlCommand
+		
+	def _getInsertCommandFields(self, tableName, fields):
+		sqlCommand = "INSERT INTO " + tableName + "("
+		for field in fields:
+			sqlCommand += field + ","
+		
+		sqlCommand = self._appendClosingBrace(sqlCommand)
+		
+		return sqlCommand
+		
+	def _getInsertCommandSingleValue(self, value):
+		sqlCommand = "("
+		for val in value:
+			sqlCommand += str(val) + ","
+			
+		sqlCommand = self._appendClosingBrace(sqlCommand)
+		
+		return sqlCommand
 
 	def _print(self, message):
 		if self._printFlag:
