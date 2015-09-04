@@ -53,7 +53,6 @@ class DbHandler(object):
 			sqlCommand += self._getInsertCommandSingleValue(value) + ",\n"
 
 		sqlCommand = sqlCommand[:-2]
-		print sqlCommand
 		self._executeSqlCommand(sqlCommand)
 
 	def SelectAll(self, tableName):
