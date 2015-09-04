@@ -50,5 +50,5 @@ def testSqlite():
 	databaseHandler.DeleteTable(name)
 	databaseHandler.DeleteDatabase('testDb2.db')
 
-#testMySql()
-testSqlite()
+testMySql()
+#testSqlite()

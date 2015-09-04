@@ -50,9 +50,10 @@ class DbHandler(object):
 		sqlCommand += " VALUES"
 
 		for value in values:
-			sqlCommand += self._getInsertCommandSingleValue(value) + ", "
+			sqlCommand += self._getInsertCommandSingleValue(value) + ",\n"
 
 		sqlCommand = sqlCommand[:-2]
+		print sqlCommand
 		self._executeSqlCommand(sqlCommand)
 
 	def SelectAll(self, tableName):
