@@ -70,6 +70,7 @@ class SqliteHandler(DbHandler):
 			
 			sqlCommand = sqlCommand[:-2] + " "
 		
+		print(sqlCommand)
 		self._executeSqlCommand(sqlCommand)
 
 	def _executeSqlCommand(self, sqlCommand, fetch=False):

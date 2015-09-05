@@ -15,11 +15,9 @@ fields = [('field1', 'VARCHAR(50)'), ('field2', 'INTEGER'), ('timestamp', 'BIGIN
 
 dateTime = int(datetime.strptime('01-01-2010 10:00:00', '%d-%m-%Y %H:%M:%S').strftime('%s'))	
 insertFields = ['field1', 'field2', 'timestamp']
-insertValues = [['"hello"', 15, dateTime], ['"byebye"', 10, dateTime], ['"hi"', 20, dateTime]]
+insertValues = [['"hello"', 15, dateTime], ['"byebye"', 10, dateTime], ['"hi"', 20, dateTime], ['"boo"', 25, dateTime]]
 
-def testMySql():
-	databaseHandler = MySqlHandler(credentialsHandler.Credentials, True)
-	
+def testSql(databaseHandler):
 	databaseHandler.CreateDatabase('testDb123')
 	databaseHandler.SetDatabase('testDb123')
 	
@@ -35,23 +33,8 @@ def testMySql():
 	
 	databaseHandler.Dispose()
 
-def testSqlite():
-	databaseHandler = SqliteHandler(True)
-	
-	databaseHandler.CreateDatabase('testDb.db')
-	databaseHandler.SetDatabase('testDb.db')
-	
-	databaseHandler.CreateTable(name, fields)
-	
-	databaseHandler.InsertRecord(name, insertFields, insertValues[0])
-	databaseHandler.InsertRecord(name, insertFields, insertValues[1])
-	databaseHandler.InsertManyRecords(name, insertFields, insertValues)
-	
-	databaseHandler.SelectAll(name)
-	databaseHandler.DeleteTable(name)
-	databaseHandler.DeleteDatabase('testDb.db')
-	
-	databaseHandler.Dispose()
-
-#testMySql()
-testSqlite()
+if __name__ == "__main__":
+	# MySql
+	testSql(MySqlHandler(credentialsHandler.Credentials, True))
+	# Sqlite
+	testSql(SqliteHandler(True))
