@@ -12,6 +12,10 @@ class DbHandler(object):
 	
 	def __init__(self, DEBUG=False):
 		self._printFlag = DEBUG
+
+	def OpenConnection(self): pass
+	
+	def CloseConnection(self): pass
 		
 	@abstractmethod
 	def CreateDatabase(self, dbName): pass
