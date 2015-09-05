@@ -19,7 +19,6 @@ insertValues = [['"hello"', 15, dateTime], ['"byebye"', 10, dateTime], ['"hi"', 
 
 def testMySql():
 	databaseHandler = MySqlHandler(credentialsHandler.Credentials, True)
-	databaseHandler.OpenConnection()
 	
 	databaseHandler.CreateDatabase('testDb123')
 	databaseHandler.SetDatabase('testDb123')
@@ -33,11 +32,11 @@ def testMySql():
 	databaseHandler.SelectAll(name)
 	databaseHandler.DeleteTable(name)
 	databaseHandler.DeleteDatabase('testDb123')
-	databaseHandler.CloseConnection()
+	
+	databaseHandler.Dispose()
 
-def testSqlite():	
+def testSqlite():
 	databaseHandler = SqliteHandler(True)
-	databaseHandler.OpenConnection()
 	
 	databaseHandler.CreateDatabase('testDb.db')
 	databaseHandler.SetDatabase('testDb.db')
@@ -51,7 +50,8 @@ def testSqlite():
 	databaseHandler.SelectAll(name)
 	databaseHandler.DeleteTable(name)
 	databaseHandler.DeleteDatabase('testDb.db')
-	databaseHandler.CloseConnection()
+	
+	databaseHandler.Dispose()
 
 #testMySql()
 testSqlite()

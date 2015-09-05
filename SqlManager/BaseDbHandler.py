@@ -12,10 +12,6 @@ class DbHandler(object):
 	
 	def __init__(self, DEBUG=False):
 		self._printFlag = DEBUG
-
-	def OpenConnection(self): pass
-	
-	def CloseConnection(self): pass
 		
 	@abstractmethod
 	def CreateDatabase(self, dbName): pass
@@ -25,6 +21,9 @@ class DbHandler(object):
 
 	@abstractmethod
 	def SetDatabase(self, dbName): pass
+
+	@abstractmethod
+	def Dispose(self): pass
 
 	def CreateTable(self, tableName, tableFields):
 		sqlCommand = "CREATE TABLE IF NOT EXISTS " + tableName + "("

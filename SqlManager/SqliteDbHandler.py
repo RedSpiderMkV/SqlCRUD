@@ -14,6 +14,9 @@ class SqliteHandler(DbHandler):
 	def __init__(self, DEBUG=False):
 		super(SqliteHandler, self).__init__(DEBUG)
 		
+	def Dispose(self):
+		return
+		
 	def CreateDatabase(self, dbNameWithPath):
 		if self._connectToDatabase(dbNameWithPath):
 			self.__dbName = dbNameWithPath
