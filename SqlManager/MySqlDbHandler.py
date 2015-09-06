@@ -49,10 +49,15 @@ class MySqlHandler(DbHandler):
 			
 			if fetch:
 				return cursor.fetchall()
+			else:
+				self.dbConnection.commit()
 				
 			return True
 		except db.Error, e:
 			print('command failed...' + e.args[1])
+			
+			if not fetch:
+				self.dbConnection.rollback()
 			
 			return False
 		finally:

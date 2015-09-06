@@ -35,6 +35,6 @@ def testSql(databaseHandler):
 
 if __name__ == "__main__":
 	# MySql
-	testSql(MySqlHandler(credentialsHandler.Credentials, True))
+	#testSql(MySqlHandler(credentialsHandler.Credentials, True))
 	# Sqlite
 	testSql(SqliteHandler(True))
