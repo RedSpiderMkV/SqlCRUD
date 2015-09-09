@@ -13,15 +13,10 @@ class MySqlHandler(DbHandler):
 	def __init__(self, credentials, DEBUG=False):
 		super(MySqlHandler, self).__init__(DEBUG)
 		self.__credentials = credentials
-		
-	def OpenConnection(self):
-		self.dbConnection = db.connect(self.__credentials.Host, \
-							   self.__credentials.User, \
-							   self.__credentials.Password, '')
-	
-	def CloseConnection(self):
-		self.dbConnection.close()
-		self._print('Connection closed')
+		self._openConnection()
+
+	def Dispose(self):
+		self._closeConnection()
 	
 	def SetDatabase(self, dbName):
 		self.dbName = dbName
@@ -35,6 +30,15 @@ class MySqlHandler(DbHandler):
 	def DeleteDatabase(self, dbName):
 		sqlCommand = "DROP DATABASE " + dbName
 		self._executeSqlCommand(sqlCommand)
+
+	def _openConnection(self):
+		self.dbConnection = db.connect(self.__credentials.Host, \
+							   self.__credentials.User, \
+							   self.__credentials.Password, '')
+	
+	def _closeConnection(self):
+		self.dbConnection.close()
+		self._print('Connection closed')
 
 	def _executeSqlCommand(self, command, fetch=False):
 		try:

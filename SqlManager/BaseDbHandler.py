@@ -22,6 +22,9 @@ class DbHandler(object):
 	@abstractmethod
 	def SetDatabase(self, dbName): pass
 
+	@abstractmethod
+	def Dispose(self): pass
+
 	def CreateTable(self, tableName, tableFields):
 		sqlCommand = "CREATE TABLE IF NOT EXISTS " + tableName + "("
 		
@@ -35,19 +38,23 @@ class DbHandler(object):
 		sqlCommand = "DROP TABLE IF EXISTS " + tableName
 		self._executeSqlCommand(sqlCommand)
 
-	def InsertRecord(self, tableName, fields, values):
-		sqlCommand = "INSERT INTO " + tableName + "("
-		for field in fields:
-			sqlCommand += field + ","
-			
-		sqlCommand = self._appendClosingBrace(sqlCommand)
+	def InsertRecord(self, tableName, fields, value):
+		sqlCommand = self._getInsertCommandFields(tableName, fields)
+
+		sqlCommand += " VALUES"		
+		sqlCommand += self._getInsertCommandSingleValue(value)
 		
-		sqlCommand += "VALUES("
+		self._executeSqlCommand(sqlCommand)
+
+	def InsertManyRecords(self, tableName, fields, values):
+		sqlCommand = self._getInsertCommandFields(tableName, fields)
+
+		sqlCommand += " VALUES"
+
 		for value in values:
-			sqlCommand += str(value) + ","
-			
-		sqlCommand = self._appendClosingBrace(sqlCommand)
-		
+			sqlCommand += self._getInsertCommandSingleValue(value) + ",\n"
+
+		sqlCommand = sqlCommand[:-2]
 		self._executeSqlCommand(sqlCommand)
 
 	def SelectAll(self, tableName):
@@ -64,7 +71,25 @@ class DbHandler(object):
 		sqlCommand = sqlCommand[0:len(sqlCommand) - 1]
 		sqlCommand += ")"
 		
-		return sqlCommand	
+		return sqlCommand
+		
+	def _getInsertCommandFields(self, tableName, fields):
+		sqlCommand = "INSERT INTO " + tableName + "("
+		for field in fields:
+			sqlCommand += field + ","
+		
+		sqlCommand = self._appendClosingBrace(sqlCommand)
+		
+		return sqlCommand
+		
+	def _getInsertCommandSingleValue(self, value):
+		sqlCommand = "("
+		for val in value:
+			sqlCommand += str(val) + ","
+			
+		sqlCommand = self._appendClosingBrace(sqlCommand)
+		
+		return sqlCommand
 
 	def _print(self, message):
 		if self._printFlag:

@@ -14,6 +14,9 @@ class SqliteHandler(DbHandler):
 	def __init__(self, DEBUG=False):
 		super(SqliteHandler, self).__init__(DEBUG)
 		
+	def Dispose(self):
+		return
+		
 	def CreateDatabase(self, dbNameWithPath):
 		if self._connectToDatabase(dbNameWithPath):
 			self.__dbName = dbNameWithPath
@@ -41,6 +44,34 @@ class SqliteHandler(DbHandler):
 			self._print('Database doesn\'t exist')
 			
 		return False
+
+	def InsertManyRecords(self, tableName, fields, values):
+		sqlCommand = "INSERT INTO " + tableName + "\n"
+
+		index = 0
+		initValue = values[0]
+		
+		sqlCommand += "SELECT "
+		while index < len(fields):
+			sqlCommand += str(initValue[index]) + " AS " + fields[index] + ", "
+			index += 1
+		
+		sqlCommand = sqlCommand[:-2] + " "
+		
+		init = True
+		for value in values:
+			if init:
+				init = False
+				continue
+			
+			sqlCommand += "\nUNION SELECT "
+			for val in value:
+				sqlCommand += str(val) + ", "
+			
+			sqlCommand = sqlCommand[:-2] + " "
+		
+		print(sqlCommand)
+		self._executeSqlCommand(sqlCommand)
 
 	def _executeSqlCommand(self, sqlCommand, fetch=False):
 		con = lite.connect(self.__dbName)
