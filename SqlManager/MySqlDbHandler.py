@@ -45,7 +45,7 @@ class MySqlHandler(DbHandler):
 			cursor = self.dbConnection.cursor()
 			cursor.execute(command)
 			
-			self._print('command executed successfully')
+			self._print('Command executed successfully')
 			
 			if fetch:
 				return cursor.fetchall()

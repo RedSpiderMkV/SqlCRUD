@@ -70,7 +70,6 @@ class SqliteHandler(DbHandler):
 			
 			sqlCommand = sqlCommand[:-2] + " "
 		
-		print(sqlCommand)
 		self._executeSqlCommand(sqlCommand)
 
 	def _executeSqlCommand(self, sqlCommand, fetch=False):
@@ -80,7 +79,7 @@ class SqliteHandler(DbHandler):
 			cur = con.cursor()
 			cur.execute(sqlCommand)
 			
-			self._print("command executed successfully")
+			self._print("Command executed successfully")
 			
 			if fetch:
 				rows = cur.fetchall()
