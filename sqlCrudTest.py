@@ -5,10 +5,6 @@ sys.path.append('../CredentialManager')
 from datetime import datetime
 from SqlManager.MySqlDbHandler import MySqlHandler
 from SqlManager.SqliteDbHandler import SqliteHandler
-from CredentialManager.CredentialHandler import CredentialHandler
-import os
-
-credentialsHandler = CredentialHandler(os.path.abspath('credentials.xml'))
 
 name = 'table1'
 fields = [('field1', 'VARCHAR(50)'), ('field2', 'INTEGER'), ('timestamp', 'BIGINT')]
@@ -29,12 +25,12 @@ def testSql(databaseHandler):
 	
 	databaseHandler.SelectAll(name)
 	databaseHandler.DeleteTable(name)
-	#databaseHandler.DeleteDatabase('testDb123')
+	databaseHandler.DeleteDatabase('testDb123')
 	
 	databaseHandler.Dispose()
 
 if __name__ == "__main__":
 	# MySql
-	#testSql(MySqlHandler(credentialsHandler.Credentials, True))
+	#testSql(MySqlHandler(True))
 	# Sqlite
 	testSql(SqliteHandler(True))
