@@ -29,7 +29,7 @@ def testSql(databaseHandler):
 	
 	databaseHandler.SelectAll(name)
 	databaseHandler.DeleteTable(name)
-	databaseHandler.DeleteDatabase('testDb123')
+	#databaseHandler.DeleteDatabase('testDb123')
 	
 	databaseHandler.Dispose()
 
