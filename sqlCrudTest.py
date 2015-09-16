@@ -1,7 +1,4 @@
 
-import sys
-sys.path.append('../CredentialManager')
-
 from datetime import datetime
 import SqlManager.SqlManager as SqlManager
 
