@@ -70,20 +70,31 @@ class SqliteHandler(DbHandler):
 			
 			sqlCommand = sqlCommand[:-2] + " "
 		
-		print(sqlCommand)
 		self._executeSqlCommand(sqlCommand)
 
 	def _executeSqlCommand(self, sqlCommand, fetch=False):
 		con = lite.connect(self.__dbName)
-		with con:
+		
+		try:
 			cur = con.cursor()
 			cur.execute(sqlCommand)
 			
-			self._print("command executed successfully")
+			self._print("Command executed successfully")
 			
 			if fetch:
 				rows = cur.fetchall()
 				return rows
+			else:
+				con.commit()
+				return True
+		except Exception:
+			if con and not fetch:
+				con.rollback()
+		finally:
+			if con:
+				con.close()
+		
+		return False
 	
 	def _connectToDatabase(self, dbNameWithPath):
 		try:
