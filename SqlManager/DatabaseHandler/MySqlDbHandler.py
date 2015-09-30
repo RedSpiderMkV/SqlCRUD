@@ -6,13 +6,19 @@ Created on Sun Aug 24 21:12:33 2015
 """
 
 import MySQLdb as db
+import os
 
 from BaseDbHandler import DbHandler
+from CredentialManager.CredentialHandler import CredentialHandler
 
 class MySqlHandler(DbHandler):
-	def __init__(self, credentials, DEBUG=False):
+	def __init__(self, DEBUG=False, credentialsPath=''):
 		super(MySqlHandler, self).__init__(DEBUG)
-		self.__credentials = credentials
+		
+		if credentialsPath == '':
+			self.__credentials = CredentialHandler('credentials.xml').Credentials
+		else:
+			self.__credentials = CredentialHandler(os.path.abspath(credentialsPath)).Credentials
 		self._openConnection()
 
 	def Dispose(self):
@@ -45,14 +51,19 @@ class MySqlHandler(DbHandler):
 			cursor = self.dbConnection.cursor()
 			cursor.execute(command)
 			
-			self._print('command executed successfully')
+			self._print('Command executed successfully')
 			
 			if fetch:
 				return cursor.fetchall()
+			else:
+				self.dbConnection.commit()
 				
 			return True
 		except db.Error, e:
 			print('command failed...' + e.args[1])
+			
+			if not fetch:
+				self.dbConnection.rollback()
 			
 			return False
 		finally:

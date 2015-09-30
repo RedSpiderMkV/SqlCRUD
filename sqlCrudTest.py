@@ -1,14 +1,6 @@
 
-import sys
-sys.path.append('../CredentialManager')
-
 from datetime import datetime
-from SqlManager.MySqlDbHandler import MySqlHandler
-from SqlManager.SqliteDbHandler import SqliteHandler
-from CredentialManager.CredentialHandler import CredentialHandler
-import os
-
-credentialsHandler = CredentialHandler(os.path.abspath('credentials.xml'))
+import SqlManager.SqlManager as SqlManager
 
 name = 'table1'
 fields = [('field1', 'VARCHAR(50)'), ('field2', 'INTEGER'), ('timestamp', 'BIGINT')]
@@ -35,6 +27,6 @@ def testSql(databaseHandler):
 
 if __name__ == "__main__":
 	# MySql
-	testSql(MySqlHandler(credentialsHandler.Credentials, True))
+	#testSql(SqlManager.GetSqlHandler(SqlManager.MYSQL, True))
 	# Sqlite
-	testSql(SqliteHandler(True))
+	testSql(SqlManager.GetSqlHandler(SqlManager.SQLITE, True))
