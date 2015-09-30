@@ -13,7 +13,7 @@ credentialsHandler = CredentialHandler(os.path.abspath('credentials.xml'))
 name = 'table1'
 fields = [('field1', 'VARCHAR(50)'), ('field2', 'INTEGER'), ('timestamp', 'BIGINT')]
 
-dateTime = int(datetime.strptime('01-01-2010 10:00:00', '%d-%m-%Y %H:%M:%S').strftime('%s'))	
+dateTime = int(datetime.strptime('01-01-2010 10:00:00', '%d-%m-%Y %H:%M:%S').strftime('%s'))
 insertFields = ['field1', 'field2', 'timestamp']
 insertValues = [['"hello"', 15, dateTime], ['"byebye"', 10, dateTime], ['"hi"', 20, dateTime], ['"boo"', 25, dateTime]]
 
