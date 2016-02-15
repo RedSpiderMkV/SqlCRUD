@@ -1,6 +1,6 @@
 
 from datetime import datetime
-import SqlManager.SqlManager as SqlManager
+from SqlManager.SqlManager import SqlManager
 
 name = 'table1'
 fields = [('field1', 'VARCHAR(50)'), ('field2', 'INTEGER'), ('timestamp', 'BIGINT')]
@@ -26,7 +26,9 @@ def testSql(databaseHandler):
 	databaseHandler.Dispose()
 
 if __name__ == "__main__":
+	sqlManager = SqlManager('')
+	
 	# MySql
 	#testSql(SqlManager.GetSqlHandler(SqlManager.MYSQL, True))
 	# Sqlite
-	testSql(SqlManager.GetSqlHandler(SqlManager.SQLITE, True))
+	testSql(sqlManager.GetSqlHandler(SqlManager.SQLITE, True))

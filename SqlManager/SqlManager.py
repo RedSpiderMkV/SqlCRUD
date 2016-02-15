@@ -8,11 +8,15 @@ Created on Wed Sep 16 20:58:54 2015
 from DatabaseHandler.MySqlDbHandler import MySqlHandler
 from DatabaseHandler.SqliteDbHandler import SqliteHandler
 
-SQLITE = 0
-MYSQL = 1
+class SqlManager:
+    SQLITE = 0
+    MYSQL = 1
 
-def GetSqlHandler(handlerType, DEBUG=False):
-	if handlerType == SQLITE:
-		return SqliteHandler(DEBUG)
-	elif handlerType == MYSQL:
-		return MySqlHandler(DEBUG)
+    def __init__(self, credentialFile):
+        self.__credentialFile = credentialFile
+        
+    def GetSqlHandler(self, handlerType, DEBUG=False):
+    	if handlerType == self.SQLITE:
+    		return SqliteHandler(DEBUG)
+    	elif handlerType == self. MYSQL:
+    		return MySqlHandler(DEBUG)
