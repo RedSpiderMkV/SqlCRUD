@@ -12,11 +12,11 @@ class SqlManager:
     SQLITE = 0
     MYSQL = 1
 
-    def __init__(self, credentialFile):
+    def __init__(self, credentialFile=''):
         self.__credentialFile = credentialFile
         
     def GetSqlHandler(self, handlerType, DEBUG=False):
-    	if handlerType == self.SQLITE:
-    		return SqliteHandler(DEBUG)
-    	elif handlerType == self. MYSQL:
-    		return MySqlHandler(DEBUG)
+        if handlerType == self.SQLITE:
+            return SqliteHandler(DEBUG,self.__credentialFile)
+        elif handlerType == self. MYSQL:
+            return MySqlHandler(DEBUG, self.__credentialFile)

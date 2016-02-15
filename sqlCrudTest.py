@@ -12,23 +12,22 @@ insertValues = [['"hello"', 15, dateTime], ['"byebye"', 10, dateTime], ['"hi"', 
 def testSql(databaseHandler):
 	databaseHandler.CreateDatabase('testDb123')
 	databaseHandler.SetDatabase('testDb123')
-	
+    
 	databaseHandler.CreateTable(name, fields)
-	
 	databaseHandler.InsertRecord(name, insertFields, insertValues[0])
 	databaseHandler.InsertRecord(name, insertFields, insertValues[1])
 	databaseHandler.InsertManyRecords(name, insertFields, insertValues)
-	
+    
 	databaseHandler.SelectAll(name)
 	databaseHandler.DeleteTable(name)
 	databaseHandler.DeleteDatabase('testDb123')
-	
+    
 	databaseHandler.Dispose()
 
 if __name__ == "__main__":
 	sqlManager = SqlManager('')
-	
+    
 	# MySql
-	#testSql(SqlManager.GetSqlHandler(SqlManager.MYSQL, True))
+	testSql(sqlManager.GetSqlHandler(SqlManager.MYSQL, True))
 	# Sqlite
 	testSql(sqlManager.GetSqlHandler(SqlManager.SQLITE, True))
