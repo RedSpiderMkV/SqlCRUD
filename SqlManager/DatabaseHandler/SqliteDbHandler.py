@@ -11,7 +11,7 @@ import os
 from BaseDbHandler import DbHandler
 
 class SqliteHandler(DbHandler):
-	def __init__(self, DEBUG=False):
+	def __init__(self, DEBUG=False, credentialFile):
 		super(SqliteHandler, self).__init__(DEBUG)
 		
 	def Dispose(self):
