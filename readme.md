@@ -1,10 +1,12 @@
-#SqlCRUD
+SqlCRUD
+===========
 
 Python library to perform simple CRUD operations on a SQL database.  Perfect for when you don't feel like diving into SQL for simple operations or setting up something like SqlAlchemy for a few quick and dirty read/write operations.
 
 Currently supports MySQL and SQLite.
 
-###Credential File Content Example
+Credential File Content Example
+---------------------------------------
 
 ```xml
 <credential>
